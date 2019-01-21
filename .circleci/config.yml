@@ -1,12 +1,10 @@
 version: 2
 jobs:
   build:
-    docker:
-    - image:  clojure:openjdk-11-tools-deps
+    machine: true
+    working_directory: ~/repo
     steps:
     - checkout
     - run:
         name: run tests
-        command: |
-          set -e
-          clojure -Atest
+        command: docker-compose up --exit-code-from tests

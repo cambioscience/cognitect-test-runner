@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  datomic-socks-proxy:
+    image: dreweaster/datomic-socks-proxy
+    command: ["-r", "eu-west-1", "cbs-datomic-shelf"]
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+  tests:
+    build:
+      context: .
+    command: bash -c "set -e && ./wait-for-it.sh datomic-socks-proxy:8182 -s -t 10 -- clojure -Atest"
+    volumes:
+      - ./deps.edn:/app/deps.edn
+      - ./test:/app/test
