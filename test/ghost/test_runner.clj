@@ -1,8 +1,8 @@
 (ns ghost.test-runner
   (:require [clojure.test :as t :refer [deftest is testing]]))
 
-(deftest test-will-not-fail
-  (is (= true true)))
+(deftest test-will-fail
+  (is (= true false)))
 
 (deftest test-will-pass
   (is (= true true)))
