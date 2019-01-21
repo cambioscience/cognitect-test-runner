@@ -8,8 +8,7 @@ services:
       - AWS_ACCESS_KEY_ID
       - AWS_SECRET_ACCESS_KEY
   tests:
-    build:
-      context: .
+    image: dreweaster/clojure:openjdk-11-tools-deps-wait-for-it
     command: bash -c "set -e && ./wait-for-it.sh datomic-socks-proxy:8182 -s -t 10 -- clojure -Atest"
     volumes:
       - ./deps.edn:/app/deps.edn
